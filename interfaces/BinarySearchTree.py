@@ -1,3 +1,7 @@
+import logging
+from functools import total_ordering
+
+
 class BinarySearchTree(object):
     """
     A tree based data structure, with the following attributes:
@@ -15,12 +19,6 @@ class BinarySearchTree(object):
         pass
 
     def add(self, element):
-        """
-        Add a new node, containing the element, to the tree
-        :param element: An item to be added to the tree
-        :return: self
-        :rtype: BinarySearchTree
-        """
         pass
 
     def contains(self, query_element):
@@ -31,15 +29,16 @@ class BinarySearchTree(object):
         """
         pass
 
-    def remove(self, element):
+    def remove(self, query_element):
         """
         Remove an element equivalent to the element, if there is one. Throw a ValueError if the element is not
         contained in the tree
-        :param element: An item to be removed from the tree
+        :param query_element: An item to be removed from the tree
         :return: self
         :rtype: BinarySearchTree
         """
         pass
+
 
     def in_order_traversal(self):
         """
@@ -49,4 +48,3 @@ class BinarySearchTree(object):
         :rtype: list
         """
         pass
-

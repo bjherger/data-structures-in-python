@@ -24,6 +24,17 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertTrue(data_structure.contains(18))
         self.assertFalse(data_structure.contains(12))
 
+        self.assertListEqual([6, 18], data_structure.in_order_traversal())
+
+    def test1(self):
+        data_structure = BinarySearchTree()
+        data_structure.add(12)
+        data_structure.add(12)
+        data_structure.remove(12)
+
+        self.assertTrue(data_structure.contains(12))
+        self.assertListEqual([12], data_structure.in_order_traversal())
+
 
     def test2(self):
         data_structure = BinarySearchTree()

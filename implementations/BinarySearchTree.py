@@ -25,6 +25,7 @@ class BinarySearchTree(object):
         :return: self
         :rtype: BinarySearchTree
         """
+        logging.debug('Attempting to add element: {}'.format(element))
         # Create new node
         new_node = BinaryNode(element)
 
@@ -95,23 +96,87 @@ class BinarySearchTree(object):
         :rtype: BinarySearchTree
         """
         logging.debug('Attempting to remove query_element: {}'.format(query_element))
-        # TODO Return error if there is no root
-        # TODO Pass data to remove_helper
+        # Return error if there is no root
+        if self.root is None:
+            logging.debug('root is None')
+            raise ValueError('Unable to remove element')
+        # Pass data to remove_helper
+        self.root = self.remove_helper(self.root, BinaryNode(query_element))
+
+        # Return self
         pass
 
+    def remove_helper(self, pointer, query_node):
+        logging.debug('Attempting to remove query_node: {} from tree starting with pointer: {}'.format(query_node,
+                                                                                                       pointer))
+        # Locate match node and match_node_parent
+        match_node_parent = None
+        match_node = pointer
 
-    def remove_helper(self, query_node, pointer):
-       # TODO Locate match node and match_node_parent
-       # TODO Determine match node replacement
-       # TODO Remove match node replacement, if necessary
-       # TODO Replace match node with match node replacement
-       pass
+        logging.debug('match_node_parent: {}, match_node: {}, match_node.left: {}, match_node.right: {}'.format(
+            match_node_parent, match_node, match_node.left, match_node.right))
+        while match_node is not None and match_node != query_node:
+            match_node_parent = match_node
+            match_node = match_node.left if query_node <= match_node_parent else match_node.right
+            logging.debug('match_node_parent: {}, match_node: {}'.format(match_node_parent, match_node))
 
-    def find_smallest_right_descendant(self, pointer):
-        # TODO If pointer has no children, return None
-        # TODO If match node has one child, return that child
-        # TODO If match node has two children, return smallest right.
-        pass
+        # Raise value error if query node is not in tree
+        if match_node is None:
+            raise ValueError('Unable to remove element')
+
+        while match_node.left == query_node:
+            logging.debug('Equal nodes. Match node to the lowest match')
+            match_node_parent = match_node
+            match_node = match_node.left
+
+        logging.debug('match_node_parent: {}, match_node: {}, match_node.left: {}, match_node.right: {}'.format(
+            match_node_parent, match_node, match_node.left, match_node.right))
+
+        # Determine match node replacement
+        replacement_node = self.find_replacement_node(match_node)
+        logging.debug('replacement_node: {}'.format(replacement_node))
+
+        # Remove match node replacement, if necessary
+        if replacement_node is not None:
+            self.remove_helper(match_node, replacement_node)
+            replacement_node.left = match_node.left
+            replacement_node.right = match_node.right
+
+        # Replace match node with match node replacement
+        if match_node_parent is None:
+            logging.debug('replacing pointer w/ replacement_node: {}'.format(replacement_node))
+            pointer = replacement_node
+        elif match_node <= match_node_parent:
+            match_node_parent.left = replacement_node
+        else:
+            match_node_parent.right = replacement_node
+        logging.debug('replacement_node: {}, match_node: {}'.format(replacement_node, match_node))
+
+
+        logging.debug('pointer: {}'.format(pointer))
+        return pointer
+
+    def find_replacement_node(self, pointer):
+        # If pointer has no children, return None
+        if pointer.left is None and pointer.right is None:
+            logging.debug('No children. replacement is None')
+            return None
+        # If match node has one child, return that child
+        elif pointer.left is None and pointer.right is not None:
+            logging.debug('right child replacement')
+            return pointer.right
+        elif pointer.left is not None and pointer.right is None:
+            logging.debug('leftchild replacement')
+            return pointer.left
+        # If match node has two children, return smallest right.
+        else:
+            logging.debug('two children')
+            replacement = pointer.right
+            logging.debug('replacement: {}'.format(replacement))
+            while replacement.left is not None:
+                replacement = replacement.left
+                logging.debug('replacement: {}'.format(replacement))
+            return replacement
 
     def in_order_traversal(self):
         """
@@ -128,8 +193,10 @@ class BinarySearchTree(object):
 
     def in_order_traversal_helper(self, node):
         # Base case: No children
+        logging.debug('traversing node: {}'.format(node))
         if node is None:
             return []
+
         # Return left traversal, self, right traversal
         return self.in_order_traversal_helper(node.left) + [node.data] + self.in_order_traversal_helper(node.right)
 

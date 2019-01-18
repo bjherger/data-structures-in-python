@@ -55,7 +55,8 @@ class TestBinarySearchTree(unittest.TestCase):
         removed = data_structure.remove()
         self.assertEqual(17, removed)
         self.assertTrue(data_structure.contains(19))
-        self.assertFalse(data_structure.contains(23))
+        self.assertTrue(data_structure.contains(23))
+        self.assertFalse(data_structure.contains(17))
 
     def test4(self):
         data_structure = LinkedList()

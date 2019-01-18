@@ -1,7 +1,7 @@
 import logging
 import unittest
 
-from interfaces.LinkedList import LinkedList
+from implementations.LinkedList import LinkedList
 
 logging.getLogger().setLevel(logging.DEBUG)
 

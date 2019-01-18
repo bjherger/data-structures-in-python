@@ -95,90 +95,22 @@ class BinarySearchTree(object):
         :rtype: BinarySearchTree
         """
         logging.debug('Attempting to remove query_element: {}'.format(query_element))
-
-        # Initialize query node
-        query_node = BinaryNode(query_element)
-
-        # Initialize pointer with root
-        pointer = self.root
-
-        # If root is empty, query_element cannot be removed. Throw error
-        if pointer is None:
-            raise ValueError('Cannot remove. Element not found')
-        # If root is query node, it may require special handling
-        elif pointer == query_node:
-            equal_node = pointer
-
-            # If equal_node has no children, remove equal_node directly from equal_node_parent
-            if equal_node.left is None and equal_node.right is None:
-                self.root = None
-
-            # If equal_node has 1 child, replace equal_node with it's child
-            elif equal_node.left is None and equal_node.right is not None:
-                self.root = equal_node.right
-            elif equal_node.left is not None and equal_node.right is None:
-                self.root = equal_node.left
-
-            # If equal_node has 2 children, replace equal_node with smallest node greater than it
-            else:
-                smallest_right_node = equal_node.right
-
-                while smallest_right_node is not None and smallest_right_node.left is not None:
-                    smallest_right_node = smallest_right_node.left
-                logging.debug('smallest_right_node: {}'.format(smallest_right_node))
-                self.remove(query_node.data)
-
-                new_root = BinaryNode(smallest_right_node.data)
-                new_root.left = equal_node.left
-                new_root.right = equal_node.right
-                self.root = new_root
-
-        # If we've got a good root, we can look at subtrees
-        self.remove_helper(query_node, self.root)
+        # TODO Return error if there is no root
+        # TODO Pass data to remove_helper
+        pass
 
 
     def remove_helper(self, query_node, pointer):
+       # TODO Locate match node and match_node_parent
+       # TODO Determine match node replacement
+       # TODO Remove match node replacement, if necessary
+       # TODO Replace match node with match node replacement
+       pass
 
-        # Find equal node and equal_node_parent
-        equal_node_parent = pointer
-        equal_node = equal_node_parent.left if query_node <= equal_node_parent else equal_node_parent.right
-        while equal_node != query_node and equal_node is not None:
-            equal_node_parent = equal_node
-            equal_node = equal_node_parent.left if query_node <= equal_node_parent else equal_node_parent.right
-
-        # If no equal node, throw error
-        if equal_node is None:
-            raise ValueError('Cannot remove. Element not found')
-
-        # If equal_node has no children, remove equal_node directly from equal_node_parent
-        elif equal_node.left is None and equal_node.right is None:
-            equal_node_replacement = None
-
-        elif equal_node.left is None and equal_node.right is not None:
-            equal_node_replacement = equal_node.right
-
-        elif equal_node.left is not None and equal_node.right is None:
-            equal_node_replacement = equal_node.left
-        # If equal_node has 2 children, replace equal_node with smallest node greater than it
-        else:
-            smallest_right_node = equal_node.right
-
-            while smallest_right_node is not None and smallest_right_node.left is not None:
-                smallest_right_node = smallest_right_node.left
-            logging.debug('smallest_right_node: {}'.format(smallest_right_node))
-            self.remove_helper(query_node, smallest_right_node)
-
-            equal_node_replacement = BinaryNode(smallest_right_node.data)
-            equal_node_replacement.left = equal_node.left
-            equal_node_replacement.right = equal_node.right
-
-        # Give equal_node_parent a replacement
-        if equal_node <= equal_node_parent:
-            equal_node_parent.left = equal_node_replacement
-        else:
-            equal_node_parent.right = equal_node_replacement
-
-        pass
+    def find_smallest_right_descendant(self, pointer):
+        # TODO If pointer has no children, return None
+        # TODO If match node has one child, return that child
+        # TODO If match node has two children, return smallest right.
         pass
 
     def in_order_traversal(self):

@@ -23,30 +23,55 @@ class LinkedList(object):
         :return: self
         :rtype: LinkedList
         """
-        # TODO Create new node
-        # TODO Find End of list
-        # TODO Add new node to end of list
-        # TODO Increment size
-        pass
+        # Create new node
+        new_node = LinkedListNode(element)
+        # Find End of list
+        tail = self.head
+        while tail.next is not None:
+            tail = tail.next
+
+        # Add new node to end of list
+        tail.next = new_node
+
+        # Increment size
+        self.size +=1
+        return self
 
     def remove(self):
         """
         Remove the element from the head of the list
         :return: element, or None if no elements
         """
-        # TODO Find end of list
-        # TODO Remove end of list
-        # TODO Return end of list
-        pass
+        # Find top of list
+        top = self.head.next
+
+        # If no next element, return None
+        if top is None:
+            return None
+        else:
+
+            # Remove top of list
+            self.head.next = top.next
+
+            # Decrement size
+            self.size -= 1
+
+            # Return top of list
+            return top.data
 
     def peak(self):
         """
         Return the value of the head of the list, without removing it from the list
-        :return: Element at the head of the list.
+        :return: Element at the head of the list, or None if no elements
         """
-        # TODO Find end of list
-        # TODO Return end of list
-        pass
+        # Find top of list
+        top = self.head.next
+
+        # Return top of list
+        if top is not None:
+            return top.data
+        else:
+            return None
 
     def contains(self, query_element):
         """
@@ -55,18 +80,19 @@ class LinkedList(object):
         :return: A boolean, indicating whether the query element occurs in the data structure at least once
         :rtype: bool
         """
-        # TODO Iterate through LinkedList until element is found or we hit the end
-        # TODO Return True if element found
-        # TODO Return False if we hit the end of the list
-        pass
+        # Iterate through LinkedList until element is found or we hit the end
+        pointer = self.head.next
 
-    def size(self):
-        """
-        Returns the number of elements in the list
-        :return: The number of elements in the list
-        :rtype: int
-        """
-        return self.size
+        while pointer is not None:
+            # Return True if element found
+            if pointer.data == query_element:
+                return True
+
+            # Move to next pointer
+            pointer = pointer.next
+
+        # Return False if we hit the end of the list
+        return False
 
 
 class LinkedListNode(object):

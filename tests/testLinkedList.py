@@ -65,7 +65,7 @@ class TestBinarySearchTree(unittest.TestCase):
         for sample_element in sample_data:
             data_structure.add(sample_element)
 
-        self.assertEqual(len(sample_element), data_structure.size())
+        self.assertEqual(len(sample_data), data_structure.size)
 
         for sample_element in sample_data_sorted:
             self.assertTrue(data_structure.contains(sample_element))

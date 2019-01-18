@@ -1,9 +1,11 @@
+import logging
 import unittest
 
-from interfaces.BinarySearchTree import BinarySearchTree
+from implementations.BinarySearchTree import BinarySearchTree
 
+logging.getLogger().setLevel(logging.DEBUG)
 
-class TestASDF(unittest.TestCase):
+class TestBinarySearchTree(unittest.TestCase):
 
     def test_api(self):
         data_structure = BinarySearchTree()
@@ -11,7 +13,24 @@ class TestASDF(unittest.TestCase):
         for required_method in required_methods:
             self.assertTrue(hasattr(data_structure, required_method))
 
-    def test1(self):
+    def test0(self):
+        data_structure = BinarySearchTree()
+        data_structure.add(12)
+        data_structure.add(6)
+        data_structure.add(18)
+        data_structure.remove(12)
+
+        self.assertTrue(data_structure.contains(6))
+        self.assertTrue(data_structure.contains(18))
+        self.assertFalse(data_structure.contains(12))
+
+
+    def test2(self):
+        data_structure = BinarySearchTree()
+        data_structure.add(17)
+        self.assertTrue(data_structure.contains(17))
+
+    def test3(self):
         data_structure = BinarySearchTree()
         self.assertFalse(data_structure.contains(17))
         data_structure.add(17)
@@ -29,7 +48,7 @@ class TestASDF(unittest.TestCase):
         self.assertTrue(data_structure.contains(19))
         pass
 
-    def test2(self):
+    def test4(self):
         data_structure = BinarySearchTree()
 
         sample_data = [124, 123, 451351, -234, 124, 351235, 51235, 51325, 3523512351235, -213512351]
@@ -42,7 +61,7 @@ class TestASDF(unittest.TestCase):
         self.assertListEqual(sample_data_sorted, in_order_traversal)
         pass
 
-    def test3(self):
+    def test5(self):
         data_structure = BinarySearchTree()
 
         data_structure.add(15)

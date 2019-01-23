@@ -49,6 +49,7 @@ class LinkedList(object):
         :return: A boolean, indicating whether the query element occurs in the data structure at least once
         :rtype: bool
         """
+        pass
 
     def size(self):
         """

@@ -37,6 +37,15 @@ class Stack(object):
         """
         pass
 
+    def contains(self, query_element):
+        """
+        Determine if the query element is in the linked list
+        :param query_element: An element to check for in the data structure
+        :return: A boolean, indicating whether the query element occurs in the data structure at least once
+        :rtype: bool
+        """
+        pass
+
     def size(self):
         """
         Returns the number of elements in the list

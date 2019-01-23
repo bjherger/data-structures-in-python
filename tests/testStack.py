@@ -1,7 +1,7 @@
 import logging
 import unittest
 
-from interfaces.Stack import Stack
+from implementations.Stack import Stack
 
 logging.getLogger().setLevel(logging.DEBUG)
 
@@ -22,8 +22,8 @@ class TestBinarySearchTree(unittest.TestCase):
         removed = data_structure.remove()
 
         self.assertTrue(data_structure.contains(6))
-        self.assertTrue(data_structure.contains(18))
-        self.assertFalse(data_structure.contains(12))
+        self.assertTrue(data_structure.contains(12))
+        self.assertFalse(data_structure.contains(18))
         self.assertEqual(18, removed)
 
     def test1(self):

@@ -61,5 +61,9 @@ class TestMinHeap(unittest.TestCase):
 
         for sample_element in sample_data_sorted:
 
+            print(data_structure.array)
             removed = data_structure.remove()
+            print(sample_element, removed)
+
+            print()
             self.assertEqual(sample_element, removed)

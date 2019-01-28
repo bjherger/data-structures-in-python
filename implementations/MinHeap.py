@@ -61,7 +61,7 @@ class MinHeap(object):
         if len(self.array) > 1:
             self.array[0] = replacement_value
         else:
-            self.array = [return_value]
+            self.array = [replacement_value]
 
         # Sieve down replacement element down until min heap quality satisfied
         replacement_index = 0
@@ -71,49 +71,32 @@ class MinHeap(object):
             right_index = replacement_index * 2 + 1
             max_index = len(self.array) - 1
 
-            # If no children:
-            if left_index > max_index:
-
-                # Nothing to switch with. Break
+            # If no children, no swap necessary
+            if max_index < left_index:
                 break
 
-            # If only left child
-            elif right_index > max_index:
+            # If only left child, check if swap necessary
+            if max_index < right_index:
 
-                # If left child is smaller, switch the two
                 if self.array[left_index] < self.array[replacement_index]:
-
-                    # Switch left child and replacement
                     tmp = self.array[left_index]
                     self.array[left_index] = self.array[replacement_index]
                     self.array[replacement_index] = tmp
 
-                    # Update indexes
                     replacement_index = left_index
-
-                # If left child is larger, no work to do
                 else:
                     break
 
-            # If two children
+            # If two children, find if swap necessary w/ smaller child
             else:
+                switch_index = right_index if self.array[right_index] < self.array[left_index] else left_index
 
-                # Determine which child is smaller
-                if self.array[left_index] <= self.array[right_index]:
-                    switch_index = left_index
-                else:
-                    switch_index = right_index
-
-                # Switch smaller child and replacement, if smaller child is less than replacement
                 if self.array[switch_index] < self.array[replacement_index]:
                     tmp = self.array[switch_index]
                     self.array[switch_index] = self.array[replacement_index]
                     self.array[replacement_index] = tmp
 
-                    # Update indexes
                     replacement_index = switch_index
-
-                # If no child is larger, no work to do
                 else:
                     break
 

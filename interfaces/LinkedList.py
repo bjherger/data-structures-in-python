@@ -16,6 +16,7 @@ class LinkedList(object):
     """
 
     def __init__(self):
+        self.size = None
         pass
 
     def add(self, element):
@@ -48,13 +49,6 @@ class LinkedList(object):
         :param query_element: An element to check for in the data structure
         :return: A boolean, indicating whether the query element occurs in the data structure at least once
         :rtype: bool
-        """
-        pass
-
-    def size(self):
-        """
-        Returns the number of elements in the list
-        :return:
         """
         pass
 

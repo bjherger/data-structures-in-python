@@ -8,12 +8,12 @@ class MinHeap(object):
 
      - Complete tree
      - Root is minimum of all values
+     - Parents are always less than (or equal to) children
 
     """
 
     def __init__(self):
-        self.root = None
-        self.size = 0
+        self.array = list()
 
     def add(self, element):
         """
@@ -22,13 +22,19 @@ class MinHeap(object):
         :return: self
         :rtype: MinHeap
         """
-        # TODO Initialize new node
+        # Add element to list
+        self.array.append(element)
+        new_element_index = len(self.array) - 1
+        parent_index = new_element_index // 2
 
-        # TODO Find insertion point and insertion point parent
+        # Sieve up until min heap quality satisfied
+        while (parent_index >= 0) and (self.array[new_element_index] < self.array[parent_index]):
+            tmp = self.array[new_element_index]
+            self.array[new_element_index] = self.array[parent_index]
+            self.array[parent_index] = tmp
+            new_element_index = parent_index
+            parent_index = new_element_index // 2
 
-        # TODO Add new node to bottom left most location
-
-        # TODO Increment size
         pass
 
     def remove(self):
@@ -37,30 +43,92 @@ class MinHeap(object):
         :return: self
         :rtype: MinHeap
         """
-        # TODO Remove old_root
 
-        # TODO Find replacement node and replacement node parent
+        # TODO If nothing to remove, return None
+        if len(self.array) <= 0:
+            return None
 
-        # TODO Remove replacement node from tree
+        # Remove return_value
+        return_value = self.array[0]
 
-        # TODO Insert replacement node at root
+        # Find replacement_value
+        replacement_value = self.array[-1]
 
-        # TODO Move replacement node down until min heap quality satisfied
+        # Remove replacement element
+        self.array = self.array[:-1]
 
-        # TODO Decrement size
+        # Insert replacement element at root
+        if len(self.array) > 1:
+            self.array[0] = replacement_value
+        else:
+            self.array = [return_value]
 
-        # TODO Return old_root
+        # Sieve down replacement element down until min heap quality satisfied
+        replacement_index = 0
 
-        pass
+        while True:
+            left_index = replacement_index * 2
+            right_index = replacement_index * 2 + 1
+            max_index = len(self.array) - 1
+
+            # If no children:
+            if left_index > max_index:
+
+                # Nothing to switch with. Break
+                break
+
+            # If only left child
+            elif right_index > max_index:
+
+                # If left child is smaller, switch the two
+                if self.array[left_index] < self.array[replacement_index]:
+
+                    # Switch left child and replacement
+                    tmp = self.array[left_index]
+                    self.array[left_index] = self.array[replacement_index]
+                    self.array[replacement_index] = tmp
+
+                    # Update indexes
+                    replacement_index = left_index
+
+                # If left child is larger, no work to do
+                else:
+                    break
+
+            # If two children
+            else:
+
+                # Determine which child is smaller
+                if self.array[left_index] <= self.array[right_index]:
+                    switch_index = left_index
+                else:
+                    switch_index = right_index
+
+                # Switch smaller child and replacement, if smaller child is less than replacement
+                if self.array[switch_index] < self.array[replacement_index]:
+                    tmp = self.array[switch_index]
+                    self.array[switch_index] = self.array[replacement_index]
+                    self.array[replacement_index] = tmp
+
+                    # Update indexes
+                    replacement_index = switch_index
+
+                # If no child is larger, no work to do
+                else:
+                    break
+
+        # Return old_root
+        return return_value
 
     def peak(self):
         """
         Return the smallest element in the data structure
         :return: The smallest element in the data structure
         """
-        # TODO If root is None, return None
+        # If no data, return None
+        if len(self.array) <= 0:
+            return None
 
-        # TODO If root is not None, return root value
-        pass
-
-
+        # If root is not None, return root value
+        else:
+            return self.array[0]

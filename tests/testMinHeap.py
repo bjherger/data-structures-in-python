@@ -10,7 +10,7 @@ class TestMinHeap(unittest.TestCase):
 
     def test_api(self):
         data_structure = MinHeap()
-        required_methods = ['add', 'remove', 'peak', 'size']
+        required_methods = ['add', 'remove', 'peak']
         for required_method in required_methods:
             self.assertTrue(hasattr(data_structure, required_method))
 
@@ -58,8 +58,6 @@ class TestMinHeap(unittest.TestCase):
         sample_data_sorted = sorted(sample_data)
         for sample_element in sample_data:
             data_structure.add(sample_element)
-
-        self.assertEqual(len(sample_data), data_structure.size)
 
         for sample_element in sample_data_sorted:
 
